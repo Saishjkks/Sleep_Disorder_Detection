@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleep Disorder Detection</title>
+    <style>
+        :root {
+            --primary-color: #1E1E3F;
+            --secondary-color: #302B63;
+            --accent-color: #A970FF;
+            --text-color: #ffffff;
+            --card-bg: rgba(255, 255, 255, 0.12);
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --button-bg: #A970FF;
+            --button-hover: #7A52CC;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: radial-gradient(circle at top, var(--primary-color), var(--secondary-color));
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            position: relative;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h1 {
+            font-size: 3rem;
+            background: linear-gradient(90deg, var(--accent-color), #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            margin-bottom: 20px;
+            backdrop-filter: blur(12px);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.03);
+        }
+
+        ul {
+            text-align: left;
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            padding-left: 30px;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            position: relative;
+        }
+
+        ul li::before {
+            content: '\2714';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: var(--button-bg);
+            color: white;
+            font-size: 1.2rem;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            box-shadow: 0 4px 10px var(--shadow-color);
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background: var(--button-hover);
+            transform: translateY(-3px);
+        }
+
+        #message {
+            font-size: 1.2rem;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sleep Disorder Detection</h1>
+        <p>Understand how sleep impacts your health and take steps to improve it.</p>
+        
+        <div class="card">
+            <h2>Why is Sleep Important?</h2>
+            <ul>
+                <li>Improve memory and concentration</li>
+                <li>Boost the immune system</li>
+                <li>Reduce stress and anxiety</li>
+                <li>Regulate body weight</li>
+                <li>Enhance productivity and mood</li>
+            </ul>
+        </div>
+        
+        <div class="card">
+            <h2>What Happens If You Don't Sleep Well?</h2>
+            <ul>
+                <li>Increased risk of heart disease and high blood pressure</li>
+                <li>Weakened immune system</li>
+                <li>Poor concentration and memory loss</li>
+                <li>Mood swings, stress, and anxiety</li>
+                <li>Increased risk of diabetes and weight gain</li>
+                <li>Slow reaction time, leading to accidents</li>
+            </ul>
+        </div>
+        
+        <button class="btn" onclick="window.location.href='{% url 'index1' %}'">Check Now</button>
+        
+    </div>
+
+
+</body>
+</html>

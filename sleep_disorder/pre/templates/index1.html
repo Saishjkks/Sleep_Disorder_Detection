@@ -1,0 +1,580 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SleepSense - Sleep Disorder Detection</title>
+    <style>
+        :root {
+            --primary-color: #b2a7fa;
+            --secondary-color: #686de0;
+            --background-gradient: linear-gradient(135deg, #dfe6e9 0%, #b2bec3 100%);
+            --card-bg: rgba(255, 255, 255, 0.1);
+            --text-color: #333;
+        }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--background-gradient);
+            color: var(--text-color);
+        }
+
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: rgba(9, 1, 1, 0.9);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid rgb(73, 141, 6);
+            border-radius: 0.5rem;
+            background: rgba(21, 21, 25, 0.073);
+            color: rgb(30, 27, 27);
+            font-size: 1rem;
+        }
+
+        select.form-control {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            color: rgb(140, 139, 140);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        select.form-control option {
+            color: black;
+            background-color: white;
+        }
+
+        /* Style for the placeholder option */
+        select.form-control option[value=""] {
+            color: rgba(255, 255, 255, 0.7);
+            background-color: var(--primary-color);
+        }
+
+        /* When dropdown is open, make text black */
+        select.form-control:focus {
+            color: black;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .slider-container {
+            margin-top: 0.5rem;
+        }
+
+        .slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 5px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.2);
+            outline: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: var(--secondary-color);
+            cursor: pointer;
+        }
+
+        .button-container {
+            text-align: center;
+        }
+
+        .predict-btn {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 1rem 3rem;
+            border-radius: 2rem;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .predict-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .results {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .results h2 {
+            margin-bottom: 1rem;
+        }
+
+        .prediction-result {
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .result-normal {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .result-warning {
+            background-color: #FFC107;
+            color: black;
+        }
+
+        .result-danger {
+            background-color: #FF5252;
+            color: white;
+        }
+
+        .prediction-bar {
+            height: 10px;
+            border-radius: 5px;
+            margin-top: 1rem;
+            transition: width 0.3s ease;
+        }
+
+        .prediction-bar.normal {
+            background: #4CAF50;
+        }
+
+        .prediction-bar.warning {
+            background: #FFC107;
+        }
+
+        .prediction-bar.danger {
+            background: #FF5252;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1em;
+        }
+
+        .mode-switcher {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .mode-button {
+            padding: 1rem 2rem;
+            border-radius: 2rem;
+            border: none;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mode-button.active {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .mode-button:not(.active) {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .upload-container {
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 1rem;
+            padding: 3rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 2rem 0;
+        }
+
+        .upload-container:hover {
+            border-color: var(--secondary-color);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        .upload-text {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 0.5rem;
+        }
+
+        .upload-format {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+
+        .results-table th,
+        .results-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .results-table th {
+            background: rgba(255, 255, 255, 0.1);
+            font-weight: 500;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .download-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            background: #4CAF50;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .status-normal {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .status-warning {
+            background: #FFC107;
+            color: black;
+        }
+
+        .status-danger {
+            background: #FF5252;
+            color: white;
+        }
+
+        #manualEntry,
+        #bulkUpload {
+            display: none;
+        }
+
+        #manualEntry.active,
+        #bulkUpload.active {
+            display: block;
+        }
+
+        .mapping-container {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-top: 2rem;
+        }
+
+        .mapping-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .mapping-label {
+            min-width: 150px;
+        }
+
+        .suggestions-box {
+            margin-top: 2rem;
+            padding: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            color: white;
+        }
+
+        .suggestions-box h3 {
+            font-size: 1.3rem;
+            color: #171313;
+            margin-bottom: 1rem;
+        }
+
+        .suggestions-box p {
+            font-size: 1rem;
+            color: #0f0e0e;
+            margin-bottom: 1rem;
+        }
+
+        .suggestions-box ul {
+            list-style-type: none;
+            padding-left: 1.5rem;
+        }
+
+        .suggestions-box ul li {
+            font-size: 1rem;
+            color: #131313;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">🌙 SleepSense</div>
+        <div class="theme-toggle">🌞</div>
+    </nav>
+
+    <div class="container">
+        <div class="header">
+            <h1>Sleep Disorder Detection</h1>
+            <p style="color: black; font-weight: bold;">Enter your details to detect sleep disorders & improve your
+                health.</p>
+        </div>
+
+        <div id="manualEntry" class="active">
+            <form action="{% url 'predict' %}" method="post">
+                {% csrf_token %}
+                <div class="form-grid">
+                    <div class="card">
+                        <h2>Personal Details</h2>
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <select name="Gender" class="form-control" required>
+                                <option value="" selected disabled>Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Age</label>
+                            <input type="number" name="Age" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Occupation</label>
+                            <select name="Occupation" class="form-control" required>
+                                <option value="" selected disabled>Select Occupation</option>
+                                <option value="Software Engineer">Software Engineer</option>
+                                <option value="Doctor">Doctor</option>
+                                <option value="Teacher">Teacher</option>
+                                <option value="Nurse">Nurse</option>
+                                <option value="Sales Representative">Sales Representative</option>
+                                <option value="Engineer">Engineer</option>
+                                <option value="Accountant">Accountant</option>
+                                <option value="Scientist">Scientist</option>
+                                <option value="Lawyer">Lawyer</option>
+                                <option value="Sales Person">Sales Person</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Sleep Quality (1-10)</label>
+                            <input type="number" name="Quality of Sleep" class="form-control" min="1" max="10" value=""
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Physical Activity Level (1-100)</label>
+                            <input type="number" name="Physical Activity Level" class="form-control" min="1" max="100"
+                                value="" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Sleep Duration (hours)</label>
+                            <input type="number" step="0.1" name="Sleep Duration" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h2>Health Metrics</h2>
+                        <div class="form-group">
+                            <label>BMI Category</label>
+                            <select name="BMI Category" class="form-control" required>
+                                <option value="" selected disabled>Select BMI Category</option>
+                                <option value="Normal">Normal</option>
+                                <option value="Overweight">Overweight</option>
+                                <option value="Obese">Obese</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Heart Rate (BPM)</label>
+                            <input type="number" name="Heart Rate" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Daily Steps</label>
+                            <input type="number" name="Daily Steps" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Stress Level (1-10)</label>
+                            <input type="number" name="Stress Level" class="form-control" min="1" max="10" value=""
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Blood Pressure</label>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <input type="number" name="Systolic" class="form-control" placeholder="Systolic"
+                                    required>
+                                <input type="number" name="Diastolic" class="form-control" placeholder="Diastolic"
+                                    required>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="button-container" style="margin-bottom: 20px;">
+
+                    <button type="submit" class="predict-btn">Submit</button>
+                </div>
+
+
+            </form>
+
+
+            {% if prediction %}
+            <div style="margin-top: 30px; background-color: 
+                {% if 'Sleep Apnea' in prediction %} rgb(242, 161, 161) 
+                {% elif 'NaN' in prediction or 'nan' in prediction %} rgb(161, 242, 161) 
+                {% else %} rgb(255, 182, 182) {% endif %}; 
+                padding: 15px; 
+                border-radius: 8px; 
+                text-align: center; 
+                width: fit-content; 
+                margin: auto;">
+
+                <h2 style="color: black; margin: 0;">{{ prediction }}</h2>
+            </div>
+            {% endif %}
+
+
+            {% if show_suggestions %}
+            <div class="suggestions-box">
+                <h3>Suggestions for Better Sleep</h3>
+                <p>To improve your sleep quality, try to:</p>
+                <ul>
+                    {% for suggestion in suggestions_content %}
+                    <li>{{ suggestion }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>
