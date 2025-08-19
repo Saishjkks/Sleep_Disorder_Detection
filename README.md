@@ -2,13 +2,13 @@
 
 ## 📖 Project Overview  
 The **Sleep Disorder Detection System** is a machine learning-based web application designed to predict the likelihood of sleep disorders based on health and lifestyle parameters.  
-The project leverages various classification algorithms (Decision Tree, Logistic Regression, SVM, XGBoost, and Stacking Classifier) and is implemented as a **Django + Flask web application** with a user-friendly frontend.  
+The project leverages various classification algorithms (Decision Tree, Logistic Regression, SVM, XGBoost, and Stacking Classifier) and is implemented as a **Django web application** with a user-friendly frontend.  
 
 ---
 
 ## ✨ Features  
 - Predicts the probability of sleep disorders based on user input.  
-- Web interface for easy interaction (built using **Django, Flask, HTML, CSS**).  
+- Web interface for easy interaction (built using **Django, HTML, CSS**).  
 - Multiple ML models tested for accuracy, including:  
   - Decision Tree  
   - Logistic Regression  
@@ -35,7 +35,7 @@ The system takes the following features as input:
 ---
 
 ## 🛠️ Technologies Used  
-- **Backend:** Python, Django, Flask  
+- **Backend:** Python, Django
 - **Machine Learning:** Decision Tree, Logistic Regression, SVM, XGBoost, Stacking Classifier  
 - **Frontend:** HTML, CSS  
 - **Database (optional):** SQLite/MySQL for storing user input & results  
