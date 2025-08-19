@@ -1,27 +1,41 @@
-Sleep Disorder Detection
-Project Overview
+# 😴 Sleep Disorder Detection  
 
-The Sleep Disorder Detection system is a machine learning-based application designed to predict sleep disorders based on various health and lifestyle parameters. The project utilizes the Decision Tree algorithm and is implemented as a Flask and Django web application.
-Features
-1.Predicts the likelihood of sleep disorders based on user input.
-2.User-friendly web interface built using Flask and Django.
-3.Utilizes the Decision Tree algorithm for classification.
+## 📖 Project Overview  
+The **Sleep Disorder Detection System** is a machine learning-based web application designed to predict the likelihood of sleep disorders based on health and lifestyle parameters.  
+The project leverages various classification algorithms (Decision Tree, Logistic Regression, SVM, XGBoost, and Stacking Classifier) and is implemented as a **Django + Flask web application** with a user-friendly frontend.  
 
-Supports input features like:
-1.Gender
-2.Age
-3.Occupation
-4.Sleep Duration
-5.Quality of Sleep
-6.Physical Activity Level
-7.Stress Level
-8.BMI Category
-9.Heart Rate
-10.Daily Steps
-11.Systolic & Diastolic Blood Pressure
+---
 
-Technologies Used
-1.Backend: Python, Django
-2.Machine Learning Algorithm: Decision Tree, Logistic Regression, SVM, xgboost, Stacking Classifier
-3.Frontend: HTML, CSS
+## ✨ Features  
+- Predicts the probability of sleep disorders based on user input.  
+- Web interface for easy interaction (built using **Django, Flask, HTML, CSS**).  
+- Multiple ML models tested for accuracy, including:  
+  - Decision Tree  
+  - Logistic Regression  
+  - Support Vector Machine (SVM)  
+  - XGBoost  
+  - Stacking Classifier  
 
+---
+
+## 🧑‍⚕️ Input Parameters  
+The system takes the following features as input:  
+1. Gender  
+2. Age  
+3. Occupation  
+4. Sleep Duration  
+5. Quality of Sleep  
+6. Physical Activity Level  
+7. Stress Level  
+8. BMI Category  
+9. Heart Rate  
+10. Daily Steps  
+11. Systolic & Diastolic Blood Pressure  
+
+---
+
+## 🛠️ Technologies Used  
+- **Backend:** Python, Django, Flask  
+- **Machine Learning:** Decision Tree, Logistic Regression, SVM, XGBoost, Stacking Classifier  
+- **Frontend:** HTML, CSS  
+- **Database (optional):** SQLite/MySQL for storing user input & results  
